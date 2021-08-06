@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DeudoresApp</string>
+    <string name="title_list">lista</string>
+    <string name="title_create">crear</string>
+    <string name="title_read">buscar</string>
+    <string name="title_update">actualizar</string>
+    <string name="title_delete">borrar</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Digite el Nombre</string>
+    <string name="phone_hint">Digite el teléfono</string>
+    <string name="hint_amount">Digite el valor de la Deuda</string>
+    <string name="crear">Crear</string>
+    <string name="nombre">Juan Rios</string>
+    <string name="amount_example">120000</string>
+</resources>
