@@ -9,7 +9,9 @@ import com.juanrios66.deudoresapp.data.entities.Debtor
 import com.juanrios66.deudoresapp.databinding.CardViewDebtorsItemBinding
 
 
-class DebtorsAdapter: RecyclerView.Adapter<DebtorsAdapter.ViewHolder>(){
+class DebtorsAdapter(
+    private val onItemClicked: (Debtor) -> Unit,
+) : RecyclerView.Adapter<DebtorsAdapter.ViewHolder>(){
 
     private var listDebtor: MutableList<Debtor> = mutableListOf()
 
@@ -20,6 +22,7 @@ class DebtorsAdapter: RecyclerView.Adapter<DebtorsAdapter.ViewHolder>(){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listDebtor[position])
+        holder.itemView.setOnClickListener { onItemClicked(listDebtor[position]) }
     }
 
     override fun getItemCount(): Int {

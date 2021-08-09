@@ -11,5 +11,11 @@
     <string name="hint_amount">Digite el valor de la Deuda</string>
     <string name="crear">Crear</string>
     <string name="nombre">Juan Rios</string>
+    <string name="name_hint">Digite el nombre:</string>
+    <string name="phone_example">3229486754</string>
     <string name="amount_example">120000</string>
+    <string name="phone_value">Teléfono: %s</string>
+    <string name="amount_value">Valor de la deuda: $%s</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

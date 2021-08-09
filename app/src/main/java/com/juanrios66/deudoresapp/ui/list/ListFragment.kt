@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.juanrios66.deudoresapp.DeudoresApp
 import com.juanrios66.deudoresapp.data.dao.DebtorDao
@@ -40,7 +41,7 @@ class ListFragment : Fragment() {
         //    textView.text = it
         })
 
-        debtorsAdapter = DebtorsAdapter()
+        debtorsAdapter = DebtorsAdapter(onItemClicked = { onDebtorItemClicked(it) })
         binding.debtorRecyclerView.apply{
             layoutManager = LinearLayoutManager(this@ListFragment.context)
             adapter = debtorsAdapter
@@ -52,6 +53,10 @@ class ListFragment : Fragment() {
         debtorsAdapter.appendItem(listDebtors)
 
         return root
+    }
+
+    private fun onDebtorItemClicked(debtor: Debtor) {
+        findNavController().navigate(ListFragmentDirections.actionNavigationListToNavigationDetail(debtor = debtor))
     }
 
     override fun onDestroyView() {
