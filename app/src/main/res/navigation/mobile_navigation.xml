@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/navigation_detail"
         android:name="com.juanrios66.deudoresapp.ui.detail.DetailFragment"
-        android:label="@string/title_delete"
+        android:label="@string/title_details"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="debtor"
