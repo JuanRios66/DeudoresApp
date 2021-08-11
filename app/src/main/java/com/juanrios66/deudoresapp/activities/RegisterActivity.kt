@@ -15,7 +15,6 @@ import com.juanrios66.deudoresapp.utils.passValidator
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var registerBinding: ActivityRegisterBinding
-    private var condicion = booleanArrayOf(false, false, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +36,9 @@ class RegisterActivity : AppCompatActivity() {
                 if (password == registerBinding.textRepeatPassword.text.toString()) {
                     registerBinding.repeatPassword.error = null
                     val intent = Intent()
-                    val bundle = Bundle()
-                    //val user = Users(name, email, password)
-                    //bundle.putSerializable("user", user)
-                    intent.putExtras(bundle)
+                    intent.putExtra("name", name)
+                    intent.putExtra("email", email)
+                    intent.putExtra("password", password)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
                 } else {
@@ -54,34 +52,25 @@ class RegisterActivity : AppCompatActivity() {
         registerBinding.textUsername.doAfterTextChanged {
             if (!nameValidator(registerBinding.textUsername.text.toString())) {
                 registerBinding.username.error = getString(R.string.digits8)
-                condicion[1] = false
             } else {
                 registerBinding.username.error = null
-                condicion[1] = true
             }
-            registerBinding.registrar.isEnabled = condicion.all { it }
         }
 
         registerBinding.textEmail.doAfterTextChanged {
             if (!emailValidator(registerBinding.textEmail.text.toString())) {
                 registerBinding.email.error = getString(R.string.email_invalido)
-                condicion[2] = false
             } else {
                 registerBinding.email.error = null
-                condicion[2] = true
             }
-            registerBinding.registrar.isEnabled = condicion.all { it }
         }
 
         registerBinding.textPassword.doAfterTextChanged {
             if (!passValidator(registerBinding.textPassword.text.toString())) {
-                registerBinding.password.helperText = getString(R.string.digits6)
-                condicion[0] = false
+                registerBinding.password.error = getString(R.string.digits6)
             } else {
-                registerBinding.password.helperText = null
-                condicion[0] = true
+                registerBinding.password.error = null
             }
-            registerBinding.registrar.isEnabled = condicion.all { it }
         }
     }
 }

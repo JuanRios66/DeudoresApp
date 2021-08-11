@@ -1,4 +1,4 @@
-package com.juanrios66.deudoresapp
+package com.juanrios66.deudoresapp.activities
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.juanrios66.deudoresapp.R
 import com.juanrios66.deudoresapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_create, R.id.navigation_list, R.id.navigation_read, R.id.navigation_update, R.id.navigation_delete
+                R.id.navigation_create,
+                R.id.navigation_list,
+                R.id.navigation_read,
+                R.id.navigation_update,
+                R.id.navigation_delete
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
