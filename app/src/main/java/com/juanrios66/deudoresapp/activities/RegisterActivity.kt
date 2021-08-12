@@ -2,9 +2,9 @@ package com.juanrios66.deudoresapp.activities
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.juanrios66.deudoresapp.R
 import com.juanrios66.deudoresapp.databinding.ActivityRegisterBinding

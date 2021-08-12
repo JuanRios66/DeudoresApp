@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.juanrios66.deudoresapp.DeudoresApp
@@ -21,9 +22,6 @@ import java.sql.Types
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLoginBinding
-    private var condicion = booleanArrayOf(false, false)
-    private var banEmail = false
-    private var banPass = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,36 +78,34 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        val getData =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = result.data
+                    val name: String = data!!.getStringExtra("name") as String
+                    val email: String = data.getStringExtra("email") as String
+                    val pass: String = data.getStringExtra("password") as String
+                    loginBinding.textEmail.setText(EMPTY)
+                    loginBinding.textPassword.setText(EMPTY)
+                    crearusuario(name, email, pass)
+                }
+            }
+
         loginBinding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
-            startActivityForResult(intent, 1)
+            getData.launch(intent)
         }
     }
 
     private fun buscarusuario(email: String): Boolean {
         val userDao: UserDAO = DeudoresApp.database2.userDao()
         val user = userDao.searchUser(email)
-        if (user != null) {
-            with(loginBinding) {
-                if (user.email == textEmail.text.toString() && user.password == textPassword.text.toString()) {
-                    return true
-                }
+        with(loginBinding) {
+            if (user.email == textEmail.text.toString() && user.password == textPassword.text.toString()) {
+                return true
             }
         }
         return false
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            val name: String = data!!.getStringExtra("name") as String
-            val email: String = data.getStringExtra("email") as String
-            val pass: String = data.getStringExtra("password") as String
-            loginBinding.textEmail.setText(EMPTY)
-            loginBinding.textPassword.setText(EMPTY)
-            crearusuario(name, email, pass)
-        }
     }
 
     private fun crearusuario(name: String?, email: String?, pass: String?) {
@@ -117,5 +113,4 @@ class LoginActivity : AppCompatActivity() {
         val userDao: UserDAO = DeudoresApp.database2.userDao()
         userDao.insertUser(user)
     }
-
 }
