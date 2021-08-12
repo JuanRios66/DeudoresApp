@@ -43,5 +43,5 @@
     <string name="digits8">El usuario debe contener al menos 8 caracteres</string>
     <string name="email_invalido">El correo ingresado no es válido</string>
     <string name="digits6">La contraseña debe contener al menos 6 carateres</string>
-    <string name="errorlogin">Verifique el correo o regístrese</string>
+    <string name="errorlogin">Correo o contraseña incorrecto</string>
 </resources>
