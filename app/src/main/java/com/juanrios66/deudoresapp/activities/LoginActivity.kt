@@ -100,9 +100,11 @@ class LoginActivity : AppCompatActivity() {
     private fun buscarusuario(email: String): Boolean {
         val userDao: UserDAO = DeudoresApp.database2.userDao()
         val user = userDao.searchUser(email)
-        with(loginBinding) {
-            if (user.email == textEmail.text.toString() && user.password == textPassword.text.toString()) {
-                return true
+        if (user != null) {
+            with(loginBinding) {
+                if (user.email == textEmail.text.toString() && user.password == textPassword.text.toString()) {
+                    return true
+                }
             }
         }
         return false
