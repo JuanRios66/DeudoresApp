@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.juanrios66.deudoresapp.DeudoresApp
 import com.juanrios66.deudoresapp.R
-import com.juanrios66.deudoresapp.data.dao.UserDAO
+import com.juanrios66.deudoresapp.data.dao.UserDao
 import com.juanrios66.deudoresapp.data.entities.User
 import com.juanrios66.deudoresapp.databinding.ActivityLoginBinding
 import com.juanrios66.deudoresapp.utils.EMPTY
@@ -21,9 +21,6 @@ import java.sql.Types
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginBinding: ActivityLoginBinding
-    private var condicion = booleanArrayOf(false, false)
-    private var banEmail = false
-    private var banPass = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun buscarusuario(email: String): Boolean {
-        val userDao: UserDAO = DeudoresApp.database2.userDao()
+        val userDao: UserDao = DeudoresApp.database.UserDao()
         val user = userDao.searchUser(email)
         if (user != null) {
             with(loginBinding) {
@@ -114,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun crearusuario(name: String?, email: String?, pass: String?) {
         val user = User(id = Types.NULL, nombre = name, email = email, password = pass)
-        val userDao: UserDAO = DeudoresApp.database2.userDao()
+        val userDao: UserDao = DeudoresApp.database.UserDao()
         userDao.insertUser(user)
     }
 

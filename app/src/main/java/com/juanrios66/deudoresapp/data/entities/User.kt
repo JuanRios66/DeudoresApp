@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "tabla_usuario")
+@Entity(tableName = "tabla_user")
 data class User(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "nombre") val nombre: String? = null,

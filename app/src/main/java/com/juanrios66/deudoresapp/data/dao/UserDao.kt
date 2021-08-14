@@ -4,14 +4,14 @@ import androidx.room.*
 import com.juanrios66.deudoresapp.data.entities.User
 
 @Dao
-interface UserDAO {
+interface UserDao {
     @Insert
     fun insertUser(user: User)
 
     @Delete
     fun deleteUser(user: User)
 
-    @Query("SELECT*FROM tabla_usuario where email LIKE:email")
+    @Query("SELECT*FROM tabla_user where email LIKE:email")
     fun searchUser(email: String): User
 
     @Update
