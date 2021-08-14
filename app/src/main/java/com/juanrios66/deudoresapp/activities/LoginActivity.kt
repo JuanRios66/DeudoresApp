@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.juanrios66.deudoresapp.DeudoresApp
@@ -77,9 +78,22 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        val getData =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = result.data
+                    val name: String = data!!.getStringExtra("name") as String
+                    val email: String = data.getStringExtra("email") as String
+                    val pass: String = data.getStringExtra("password") as String
+                    loginBinding.textEmail.setText(EMPTY)
+                    loginBinding.textPassword.setText(EMPTY)
+                    crearusuario(name, email, pass)
+                }
+            }
+
         loginBinding.register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
-            startActivityForResult(intent, 1)
+            getData.launch(intent)
         }
     }
 
@@ -96,23 +110,9 @@ class LoginActivity : AppCompatActivity() {
         return false
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            val name: String = data!!.getStringExtra("name") as String
-            val email: String = data.getStringExtra("email") as String
-            val pass: String = data.getStringExtra("password") as String
-            loginBinding.textEmail.setText(EMPTY)
-            loginBinding.textPassword.setText(EMPTY)
-            crearusuario(name, email, pass)
-        }
-    }
-
     private fun crearusuario(name: String?, email: String?, pass: String?) {
         val user = User(id = Types.NULL, nombre = name, email = email, password = pass)
         val userDao: UserDao = DeudoresApp.database.UserDao()
         userDao.insertUser(user)
     }
-
 }
