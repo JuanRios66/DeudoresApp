@@ -2,13 +2,12 @@ package com.juanrios66.deudoresapp
 
 import android.app.Application
 import androidx.room.Room
-import com.juanrios66.deudoresapp.data.DebtorDatabase
+import com.juanrios66.deudoresapp.data.DeudoresAppDatabase
 
-class DeudoresApp: Application() {
+class DeudoresApp : Application() {
 
-    companion object{
-        lateinit var database: DebtorDatabase
-        //lateinit var database2: UserDatabase
+    companion object {
+        lateinit var database: DeudoresAppDatabase
     }
 
     override fun onCreate() {
@@ -16,11 +15,9 @@ class DeudoresApp: Application() {
 
         database = Room.databaseBuilder(
             this,
-            DebtorDatabase::class.java,
+            DeudoresAppDatabase::class.java,
             "datos_db"
         ).allowMainThreadQueries()
             .build()
-
     }
-
 }

@@ -11,7 +11,7 @@ interface UserDao {
     @Delete
     fun deleteUser(user: User)
 
-    @Query("SELECT*FROM tabla_user where email LIKE:email")
+    @Query("SELECT*FROM table_user where email LIKE:email")
     fun searchUser(email: String): User
 
     @Update
