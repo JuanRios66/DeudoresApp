@@ -12,7 +12,7 @@ interface DebtorDao {
     fun getDebtors(): MutableList<Debtor>
 
     @Query("SELECT * FROM table_debtor WHERE name LIKE :name")
-    fun readDebtor(name: String) : Debtor
+    fun readDebtor(name: String): Debtor
 
     @Delete
     fun deleteDebtor(debtor: Debtor)

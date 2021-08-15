@@ -7,11 +7,8 @@ import com.juanrios66.deudoresapp.data.dao.UserDao
 import com.juanrios66.deudoresapp.data.entities.Debtor
 import com.juanrios66.deudoresapp.data.entities.User
 
-@Database(entities = [Debtor::class, User::class], version= 1)
-
-abstract class DebtorDatabase: RoomDatabase() {
-
+@Database(entities = [Debtor::class, User::class], version = 1)
+abstract class DeudoresAppDatabase : RoomDatabase() {
     abstract fun DebtorDao(): DebtorDao
     abstract fun UserDao(): UserDao
-
 }
