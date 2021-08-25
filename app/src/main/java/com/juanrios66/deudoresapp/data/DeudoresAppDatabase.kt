@@ -2,10 +2,10 @@ package com.juanrios66.deudoresapp.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.juanrios66.deudoresapp.data.dao.DebtorDao
-import com.juanrios66.deudoresapp.data.dao.UserDao
-import com.juanrios66.deudoresapp.data.entities.Debtor
-import com.juanrios66.deudoresapp.data.entities.User
+import com.juanrios66.deudoresapp.data.local.dao.DebtorDao
+import com.juanrios66.deudoresapp.data.local.dao.UserDao
+import com.juanrios66.deudoresapp.data.local.entities.Debtor
+import com.juanrios66.deudoresapp.data.local.entities.User
 
 @Database(entities = [Debtor::class, User::class], version = 1)
 abstract class DeudoresAppDatabase : RoomDatabase() {

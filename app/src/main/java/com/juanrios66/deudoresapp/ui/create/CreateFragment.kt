@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.juanrios66.deudoresapp.DeudoresApp
-import com.juanrios66.deudoresapp.data.dao.DebtorDao
-import com.juanrios66.deudoresapp.data.entities.Debtor
+import com.juanrios66.deudoresapp.data.local.dao.DebtorDao
+import com.juanrios66.deudoresapp.data.local.entities.Debtor
+import com.juanrios66.deudoresapp.data.server.DebtorServer
 import com.juanrios66.deudoresapp.databinding.FragmentCreateBinding
 import java.sql.Types
 
@@ -44,11 +48,24 @@ class CreateFragment : Fragment() {
                 val phone = phoneEdittext.text.toString()
                 val amount = amountEdittext.text.toString().toLong()
 
-                createDebtor(name, phone, amount)
+                //createDebtor(name, phone, amount)
+
+                creardeudorServer(name, phone, amount)
             }
         }
 
         return root
+    }
+
+    private fun creardeudorServer(name: String, phone: String, amount: Long) {
+
+        val db = Firebase.firestore
+        val document = db.collection("deudores").document()
+        val id = document.id
+        val debtorServer2 = DebtorServer(id= id, name=name, phone= phone, amount = amount)
+        db.collection("deudores").document(id).set(debtorServer2)
+        cleanviews()
+
     }
 
     private fun createDebtor(name: String, phone: String, amount: Long) {

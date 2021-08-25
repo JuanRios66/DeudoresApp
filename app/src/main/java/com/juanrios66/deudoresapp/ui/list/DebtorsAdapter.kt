@@ -5,15 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.juanrios66.deudoresapp.R
-import com.juanrios66.deudoresapp.data.entities.Debtor
+import com.juanrios66.deudoresapp.data.local.entities.Debtor
+import com.juanrios66.deudoresapp.data.server.DebtorServer
 import com.juanrios66.deudoresapp.databinding.CardViewDebtorsItemBinding
 
 
 class DebtorsAdapter(
-    private val onItemClicked: (Debtor) -> Unit,
+    private val onItemClicked: (DebtorServer) -> Unit,
 ) : RecyclerView.Adapter<DebtorsAdapter.ViewHolder>(){
 
-    private var listDebtor: MutableList<Debtor> = mutableListOf()
+    private var listDebtor: MutableList<DebtorServer> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view_debtors_item, parent, false)
@@ -30,7 +31,7 @@ class DebtorsAdapter(
     }
 
 
-    fun appendItem(newItems: MutableList<Debtor>) {
+    fun appendItem(newItems: MutableList<DebtorServer>) {
         listDebtor.clear()
         listDebtor.addAll(newItems)
         notifyDataSetChanged()
@@ -38,7 +39,7 @@ class DebtorsAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         private val binding = CardViewDebtorsItemBinding.bind(view)
-        fun bind(debtor: Debtor){
+        fun bind(debtor: DebtorServer){
             with(binding){
                 textView.text = debtor.name
                 amountview.text = debtor.amount.toString()

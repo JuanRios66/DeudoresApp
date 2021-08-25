@@ -3,19 +3,20 @@ package com.juanrios66.deudoresapp.ui.delete
 import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.system.Os.accept
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.juanrios66.deudoresapp.DeudoresApp
 import com.juanrios66.deudoresapp.R
-import com.juanrios66.deudoresapp.data.dao.DebtorDao
-import com.juanrios66.deudoresapp.data.entities.Debtor
+import com.juanrios66.deudoresapp.data.local.dao.DebtorDao
+import com.juanrios66.deudoresapp.data.local.entities.Debtor
+import com.juanrios66.deudoresapp.data.server.DebtorServer
 import com.juanrios66.deudoresapp.databinding.FragmentDeleteBinding
-import com.juanrios66.deudoresapp.databinding.FragmentReadBinding
-import com.juanrios66.deudoresapp.ui.read.ReadViewModel
 
 class DeleteFragment : Fragment() {
 
@@ -35,10 +36,30 @@ class DeleteFragment : Fragment() {
         val root: View = binding.root
 
         binding.deleteButton.setOnClickListener {
-            deleteDebtor(binding.nameEditText.text.toString())
+            //deleteDebtor(binding.nameEditText.text.toString())
+            deleteDebtorFromServer(binding.nameEditText.text.toString())
         }
 
         return root
+    }
+
+    private fun deleteDebtorFromServer(name: String) {
+        val db = Firebase.firestore
+        db.collection("deudores").get().addOnSuccessListener { result ->
+            var debtorExist =  false
+            for (document in result) {
+                val debtor = document.toObject<DebtorServer>()
+                if (debtor.name == name) {
+                    debtorExist = true
+                    debtor.id?.let { db.collection("deudores").document(it).delete() }
+                    Toast.makeText(requireContext(), "Deudor eliminado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            }
+            if(!debtorExist)
+                Toast.makeText(requireContext(), "Deudor no Existe", Toast.LENGTH_SHORT).show()
+
+        }
+
     }
 
     private fun deleteDebtor(name: String) {

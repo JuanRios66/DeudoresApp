@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.juanrios66.deudoresapp.DeudoresApp
 import com.juanrios66.deudoresapp.R
-import com.juanrios66.deudoresapp.data.dao.UserDao
-import com.juanrios66.deudoresapp.data.entities.User
+import com.juanrios66.deudoresapp.data.local.dao.UserDao
+import com.juanrios66.deudoresapp.data.local.entities.User
 import com.juanrios66.deudoresapp.databinding.ActivityLoginBinding
 import com.juanrios66.deudoresapp.utils.EMPTY
 import com.juanrios66.deudoresapp.utils.emailValidator

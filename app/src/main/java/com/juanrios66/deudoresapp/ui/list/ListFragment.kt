@@ -1,6 +1,7 @@
 package com.juanrios66.deudoresapp.ui.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.juanrios66.deudoresapp.DeudoresApp
-import com.juanrios66.deudoresapp.data.dao.DebtorDao
-import com.juanrios66.deudoresapp.data.entities.Debtor
+import com.juanrios66.deudoresapp.data.local.dao.DebtorDao
+import com.juanrios66.deudoresapp.data.local.entities.Debtor
+import com.juanrios66.deudoresapp.data.server.DebtorServer
 import com.juanrios66.deudoresapp.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -47,16 +52,34 @@ class ListFragment : Fragment() {
             setHasFixedSize(false)
         }
 
-        val debtorDAO : DebtorDao = DeudoresApp.database.DebtorDao()
-        val listDebtors : MutableList<Debtor> = debtorDAO.getDebtors()
-        debtorsAdapter.appendItem(listDebtors)
+        loadFromserver()
 
         return root
     }
 
-    private fun onDebtorItemClicked(debtor: Debtor) {
-        findNavController().navigate(ListFragmentDirections.actionNavigationListToNavigationDetail(debtor = debtor))
+    private fun loadFromserver() {
+        val db = Firebase.firestore
+        db.collection("deudores").get().addOnSuccessListener { result->
+            var listDebtors: MutableList<DebtorServer> = arrayListOf()
+            for (document in result) {
+                Log.d("nombre", document.data.toString())
+                listDebtors.add(document.toObject<DebtorServer>())
+            }
+            debtorsAdapter.appendItem(listDebtors)
+        }
+
+
     }
+
+    private fun onDebtorItemClicked(debtor: DebtorServer) {
+        //findNavController().navigate(ListFragmentDirections.actionNavigationListToNavigationDetail(debtor = debtor))
+    }
+
+    /*private fun loadForlocal(){
+        val debtorDAO : DebtorDao = DeudoresApp.database.DebtorDao()
+        val listDebtors : MutableList<Debtor> = debtorDAO.getDebtors()
+        debtorsAdapter.appendItem(listDebtors)
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

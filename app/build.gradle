@@ -3,15 +3,16 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    compileSdk 31
+    compileSdk 30
 
     defaultConfig {
         applicationId "com.juanrios66.deudoresapp"
         minSdk 21
-        targetSdk 31
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -38,6 +39,8 @@ android {
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.3'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.1'
     def room_version = "2.3.0"
 
     implementation("androidx.room:room-runtime:$room_version")
