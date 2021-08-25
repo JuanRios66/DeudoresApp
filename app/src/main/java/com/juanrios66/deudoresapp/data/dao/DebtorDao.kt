@@ -1,8 +1,6 @@
 package com.juanrios66.deudoresapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.juanrios66.deudoresapp.data.entities.Debtor
 
 @Dao
@@ -13,4 +11,12 @@ interface DebtorDao {
     @Query("SELECT*FROM table_debtor")
     fun getDebtors(): MutableList<Debtor>
 
+    @Query("SELECT * FROM table_debtor WHERE name LIKE :name")
+    fun readDebtor(name: String): Debtor
+
+    @Delete
+    fun deleteDebtor(debtor: Debtor)
+
+    @Update
+    fun updateDebtor(debtor: Debtor)
 }

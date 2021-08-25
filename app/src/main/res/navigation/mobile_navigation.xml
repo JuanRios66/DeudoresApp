@@ -15,7 +15,11 @@
         android:id="@+id/navigation_list"
         android:name="com.juanrios66.deudoresapp.ui.list.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_navigation_list_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_read"
@@ -34,5 +38,15 @@
         android:name="com.juanrios66.deudoresapp.ui.delete.DeleteFragment"
         android:label="@string/title_delete"
         tools:layout="@layout/fragment_delete" />
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.juanrios66.deudoresapp.ui.detail.DetailFragment"
+        android:label="@string/title_details"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="debtor"
+            app:argType="com.juanrios66.deudoresapp.data.entities.Debtor" />
+    </fragment>
 
 </navigation>

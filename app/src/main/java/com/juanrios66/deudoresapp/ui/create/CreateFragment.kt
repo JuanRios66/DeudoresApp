@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,7 +26,7 @@ class CreateFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         createViewModel =
             ViewModelProvider(this).get(CreateViewModel::class.java)
 
@@ -36,25 +35,25 @@ class CreateFragment : Fragment() {
 
         //val textView: TextView = binding.textHome
         createViewModel.text.observe(viewLifecycleOwner, Observer {
-        //    textView.text = it
+            //    textView.text = it
         })
 
-    with(binding){
-    createButton.setOnClickListener{
-        val name = nameEdittext.text.toString()
-        val phone = phoneEdittext.text.toString()
-        val amount = amountEdittext.text.toString().toLong()
+        with(binding) {
+            createButton.setOnClickListener {
+                val name = nameEdittext.text.toString()
+                val phone = phoneEdittext.text.toString()
+                val amount = amountEdittext.text.toString().toLong()
 
-        createDebtor(name, phone, amount)
-       }
-    }
-        
+                createDebtor(name, phone, amount)
+            }
+        }
+
         return root
     }
 
     private fun createDebtor(name: String, phone: String, amount: Long) {
-        val debtor = Debtor(id = Types.NULL, name=name, phone= phone, amount= amount)
-        val debtorDao : DebtorDao = DeudoresApp.database.DebtorDao()
+        val debtor = Debtor(id = Types.NULL, name = name, phone = phone, amount = amount)
+        val debtorDao: DebtorDao = DeudoresApp.database.DebtorDao()
         debtorDao.createDebtor(debtor)
         cleanviews()
     }
